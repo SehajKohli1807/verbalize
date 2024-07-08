@@ -1,7 +1,7 @@
 import React from "react";
 import { IconPaperclip } from "@tabler/icons-react";
 
-const FileUpload = ({ handleFileUpload }) => {
+const FileUpload = ({ handleFileUpload }) => (
   <label htmlFor="file-upload" className="cursor-pointer">
     <IconPaperclip size={21} />
     <input
@@ -10,7 +10,7 @@ const FileUpload = ({ handleFileUpload }) => {
       onChange={handleFileUpload}
       className="hidden"
     />
-  </label>;
-};
+  </label>
+);
 
 export default FileUpload;

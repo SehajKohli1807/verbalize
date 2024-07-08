@@ -4,6 +4,8 @@ import TextArea from "./Components/Inputs/TextArea";
 import React, { useState, ChangeEvent } from "react";
 import SpeechRecognitionComponent from "./Components/SpeechRecognisation/SpeechRecognition";
 import { IconVolume } from "@tabler/icons-react";
+import FileUpload from "./Components/Inputs/FileUpload";
+import { rtfToText } from "@/utils/rtfToText";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState<string>("");
@@ -14,6 +16,20 @@ export default function Home() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const rtfContent = reader.result as string;
+        const text = rtfToText(rtfContent);
+        setSourceText(text);
+      };
+      reader.readAsText(file);
+    }
+  };
   return (
     <div>
       <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
@@ -47,6 +63,7 @@ export default function Home() {
                           size={22}
                           onClick={() => handleAudioPlayback(sourceText)}
                         />
+                        <FileUpload handleFileUpload={handleFileUpload} />
                       </span>
                     </div>
                   </div>
