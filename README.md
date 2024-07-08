@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduction:
+Verbalize is a sophisticated voice translation tool that enables users to speak into a microphone, translate the spoken text into another language, and play back the translation. This project integrates React speech recognition and the OpenAI API for translation within a Next.js application.
 
-## Getting Started
+**Live Website**: https://verbalize-rho.vercel.app/
 
-First, run the development server:
+## Tech Stack:
+1. Next.js
+2. TypeScript
+3. OpenAI api
+4. React Speech Recognition
+5. Tailwind CSS
+6. Preline UI
+7. Tabler Icons
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Features:
+ 1. Speech Recognition: Converts spoken words into text using the Web Speech API.
+ 2. Text Translation: Translates the recognized text into a selected target language using OpenAI's GPT-4 model.
+ 3. Audio Playback: Converts translated text back into speech using the Web Speech API's speech synthesis.
+ 4. File Upload: Reads and translates text from uploaded files, including RTF to plain text conversion.
+ 5. Link Content Fetching: Fetches and translates text content from provided URLs.
+ 6. Language Selection: Allows users to select target languages for translation.
+ 7. Copy to Clipboard: Copies the translated text to the clipboard.
+ 8. Like, Dislike, and Favorite: Provides user interaction features for translations.
+ 9. Responsive Design: Ensures a seamless experience across different devices.
