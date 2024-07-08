@@ -10,7 +10,8 @@ Verbalize is a sophisticated voice translation tool that enables users to speak 
 4. React Speech Recognition
 5. Tailwind CSS
 6. Preline UI
-7. Tabler Icons
+7. Aceternity UI
+8. Tabler Icons
 
 ## Features:
  1. Speech Recognition: Converts spoken words into text using the Web Speech API.
