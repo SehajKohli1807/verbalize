@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { OpenAI } from "openai";
 import exp from "constants";
+import { toast } from "react-toastify";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
@@ -11,10 +12,10 @@ const useTranslate = (sourceText, selectedLanguage) => {
   const [targetText, setTargetText] = useState("");
 
   useEffect(() => {
-    const handleTranslate = async (SourceText) => {
+    const handleTranslate = async (sourceText) => {
       try {
         const response = await openai.chat.completions.create({
-          model: "gpt-4o",
+          model: "gpt-3.5-turbo-0125",
           messages: [
             {
               role: "user",
@@ -36,7 +37,7 @@ const useTranslate = (sourceText, selectedLanguage) => {
     if (sourceText.trim()) {
       const timeoutId = setTimeout(() => {
         handleTranslate(sourceText);
-      }, 500); //After every 5 seconds it will convert the text into selected target language
+      }, 1000); //After every 10 seconds it will convert the text into selected target language
 
       return () => clearTimeout(timeoutId);
     }

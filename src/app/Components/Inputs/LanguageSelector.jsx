@@ -5,12 +5,12 @@ const LanguageSelector = ({
   selectedLanguage,
   setSelectedLanguage,
   languages,
-}) => {
+}) => (
   <span className="cursor-pointer rounded-full space-x-1 pl-2 bg-black flex items-center flex-row ">
     <IconLanguage size={20} />
     <select
       value={selectedLanguage}
-      onClick={(e) => setSelectedLanguage(e.target.value)}
+      onChange={(e) => setSelectedLanguage(e.target.value)}
       className="bg-black flex flex-row rounded-full py-1 text-white"
     >
       {languages.map((language) => (
@@ -19,7 +19,7 @@ const LanguageSelector = ({
         </option>
       ))}
     </select>
-  </span>;
-};
+  </span>
+);
 
 export default LanguageSelector;

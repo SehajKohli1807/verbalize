@@ -3,12 +3,34 @@ import "regenerator-runtime/runtime";
 import TextArea from "./Components/Inputs/TextArea";
 import React, { useState, ChangeEvent } from "react";
 import SpeechRecognitionComponent from "./Components/SpeechRecognisation/SpeechRecognition";
-import { IconVolume } from "@tabler/icons-react";
+import {
+  IconCopy,
+  IconStar,
+  IconThumbDown,
+  IconThumbUp,
+  IconVolume,
+} from "@tabler/icons-react";
 import FileUpload from "./Components/Inputs/FileUpload";
+import LinkPaste from "./Components/Inputs/LinkPaste";
 import { rtfToText } from "@/utils/rtfToText";
+import useTranslate from "@/hooks/useTranslate";
+import LanguageSelector from "./Components/Inputs/LanguageSelector";
+import SvgDecorations from "./Components/SvgDecorations";
+import CategoryLinks from "./Components/CategoryLinks";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState<string>("");
+  const [copied, setCopied] = useState<boolean>(false); //for copy icon in target textbox.
+  const [favourite, setFavourite] = useState<boolean>(false);
+  const [languages] = useState<string[]>([
+    "English",
+    "Spanish",
+    "French",
+    "German",
+    "Chinese",
+  ]);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Spanish");
+  const targetText = useTranslate(sourceText, selectedLanguage);
 
   //Accepts the text and convert it into the speech
   const handleAudioPlayback = (text: string) => {
@@ -30,6 +52,37 @@ export default function Home() {
       reader.readAsText(file);
     }
   };
+
+  const handleLinkPaste = async (e: ChangeEvent<HTMLInputElement>) => {
+    const link = e.target.value;
+    try {
+      const response = await fetch(link);
+      const data = await response.text();
+      setSourceText(data);
+    } catch (error) {
+      console.error("Error fetching link content:", error);
+    }
+  };
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(targetText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleLike = () => {};
+
+  const handleDislike = () => {};
+
+  const handleFavorite = () => {
+    setFavourite(!favourite);
+    if (!favourite) {
+      localStorage.setItem("favoriteTranslation", targetText);
+    } else {
+      localStorage.removeItem("favoriteTranslation");
+    }
+  };
+
   return (
     <div>
       <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
@@ -64,11 +117,51 @@ export default function Home() {
                           onClick={() => handleAudioPlayback(sourceText)}
                         />
                         <FileUpload handleFileUpload={handleFileUpload} />
+                        <LinkPaste handleLinkPaste={handleLinkPaste} />
                       </span>
+                      <span className="text-sm pr-5">{sourceText.length}</span>
+                    </div>
+                  </div>
+                  <div className="relative z-10 flex flex-col space-x-3 border rounded-lg shadow-lg bg-neutral-900 border-neutral-700 shadow-gray-900/20">
+                    <TextArea
+                      id={"target-language"}
+                      value={targetText}
+                      onChange={() => {}}
+                      placeholder={"Target Language"}
+                    />
+                    <div className="flex flex-row justify-between w-full">
+                      <span className="cursor-pointer flex space-x-2 flex-row items-center">
+                        <LanguageSelector
+                          selectedLanguage={selectedLanguage}
+                          setSelectedLanguage={setSelectedLanguage}
+                          languages={languages}
+                        />
+                        <IconVolume
+                          size={22}
+                          onClick={() => handleAudioPlayback(targetText)}
+                        />
+                      </span>
+                      <div className="flex flex-row items-center space-x-2 pr-4 cursor-pointer">
+                        <IconCopy size={22} onClick={handleCopyToClipboard} />
+                        {copied && (
+                          <span className="text-xs text-green-500">
+                            Copied!
+                          </span>
+                        )}
+                        <IconThumbUp size={22} onClick={handleLike} />
+                        <IconThumbDown size={22} onClick={handleDislike} />
+                        <IconStar
+                          size={22}
+                          onClick={handleFavorite}
+                          className={favourite ? "text-yellow-500" : ""}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
+                <SvgDecorations />
               </div>
+              <CategoryLinks />
             </div>
           </div>
         </div>

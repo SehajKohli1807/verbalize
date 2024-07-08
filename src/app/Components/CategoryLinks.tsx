@@ -25,8 +25,8 @@ const CategoryLinks: React.FC = () => {
           key={label}
           className="m-1 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-white"
         >
-          <Icon size={40} />
-          <p className="text-2xl">{label}</p>
+          <Icon size={20} />
+          <p className="text-xl">{label}</p>
         </div>
       ))}
     </div>
